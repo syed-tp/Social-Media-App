@@ -121,7 +121,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'account', 'static')]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 # Default primary key field type
@@ -140,3 +144,6 @@ EMAIL_HOST_USER='syed@testpress.in'
 EMAIL_HOST_PASSWORD = 'tkmc ekqz sesy zvac'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
