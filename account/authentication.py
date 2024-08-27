@@ -5,6 +5,7 @@ class EmailAuthBackend(object):
     """Authenticate using an Email Address"""
 
     def authenticate(self, request, username=None, password=None):
+        
         try:
             user = User.objects.get(email=username)
             if user.check_password(password):
