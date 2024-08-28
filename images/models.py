@@ -7,6 +7,8 @@ from django.conf import settings
 
 from django.utils.text import slugify
 
+from django.urls import reverse
+
 class Image(models.Model):
 
     user= models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -35,3 +37,6 @@ class Image(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('images:detail', args=[self.id, self.slug])
