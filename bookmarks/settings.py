@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'images.apps.ImagesConfig',
     
+    
 ]
 
 MIDDLEWARE = [
