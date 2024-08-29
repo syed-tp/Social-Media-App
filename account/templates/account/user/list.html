@@ -9,8 +9,15 @@
     <div id="people-list">
         {% for user in users %}
             <div class="user">
+
+                {{user.Profile}}
+                
                 <a href="{{ user.get_absolute_url }}">
-                    <img src="{% thumbnail user.profile.photo 180x180 %}">
+                    {% if user.profile.photo %}
+                        <img src="{% thumbnail user.profile.photo 180x180 crop=True %}" class="userdetail">
+                    {% else %}
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg" class="userdetail">
+                    {% endif %}
                 </a>
                 <div class="info">
                     <a href="{{ user.get_absolute_url }}" class="title">

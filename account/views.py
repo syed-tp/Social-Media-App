@@ -93,10 +93,13 @@ def edit(request):
 @login_required
 def user_list(request):
     users = User.objects.filter(is_active=True)
+    for user in users:
+        print(user)
+
     return render(request,
                   'account/user/list.html',
                   {'section': 'people',
-                   'users':'users'})
+                   'users':users})
 
 @login_required
 def user_detail(request, username):
