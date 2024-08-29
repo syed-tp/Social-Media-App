@@ -10,9 +10,10 @@
     {{user.Profile}}
     <div class="profile-info">
         {% if user.profile.photo %}
-            <img src="{% thumbnail user.profile.photo 180x180 %}" class="userdetail">
+            <img src="{% thumbnail user.profile.photo 180x180 crop=True %}" class="userdetail" style="width:150px; height: 150px">
         {% else %}
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg"
+            class="userdetail" style="width:150px; height: 150px">
         {% endif %}
     </div>
     {% with total_followers=user.followers.count %}
@@ -33,3 +34,31 @@
         </div>
     {% endwith %}
 {% endblock %}
+
+{% block domready %}
+    $('a.follow').click(function(e){
+        e.preventDefault();
+        $.post('{% url "user_follow" %}',
+        {
+            id: $(this).data('id'),
+            action: $(this).data('action')
+        },
+            function(data){
+                if (data['status'] == 'ok') {
+                    var previous_action = $('a.follow').data('action');
+
+                    // toggle data-action
+                    $('a.follow').data('action', previous_action == 'follow' ? 'unfollow' : 'follow');
+
+                    // toggle link text
+                    $('a.follow').text(previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+                    // update total followers
+                    var previous_followers = parseInt($('span.count .total').text());
+                    $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+                }
+            }
+        );
+    });
+{% endblock %}
+
