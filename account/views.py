@@ -60,7 +60,7 @@ def dashboard(request):
     return render(request,
         'account/dashboard.html',
         {'section': 'dashboard',
-         'actions': 'actions'})
+         'actions': actions})
 
 def register(request):
     if request.method == 'POST':

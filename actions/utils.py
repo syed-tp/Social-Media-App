@@ -7,16 +7,18 @@ from .models import Action
 def create_action(user, verb, target=None):
     #check for any similar action made in the last minute
     now = timezone.now()
+    # print(now)
     last_minute = now - datetime.timedelta(seconds=60)
     similar_actions = Action.objects.filter(user_id = user.id,
                                             verb=verb,
                                             created__gte=last_minute)
+    
     if target:
         target_ct =ContentType.objects.get_for_model(target)
-        similar_actions = similar_actions.filter(
-            target_ct=target_ct,
-            target_id=target.id)
-    
+        similar_actions = similar_actions.filter(target_ct=target_ct, target_id=target.id)
+        # print("Target Object", target)
+        # print(target_ct) 
+
     if not similar_actions:
         #no existing actions found
         action = Action(user=user, verb=verb, target=target)

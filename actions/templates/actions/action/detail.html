@@ -3,6 +3,7 @@
 {% with user=action.user profile=action.user.profile %}
 <div class="action">
     <div class="images">
+       
         {% if profile.photo %}
             {% thumbnail user.profile.photo "80x80" crop="100%" as im %}
             <a href="{{ user.get_absolute_url }}">
@@ -22,7 +23,7 @@
     </div>
     <div class="info">
         <p>
-            <span class="date">{ action.created|timesince } ago</span><br/>
+            <span class="date">{{ action.created|timesince }} ago</span><br/>
             <a href="{{ user.get_absolute_url }}">
                 {{ user.first_name }}
             </a>
